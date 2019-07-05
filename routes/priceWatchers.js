@@ -16,11 +16,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log('POST request received.');
-  priceWatchers['1'] = req.body;
-  res.json(priceWatchers)  
+  res.send(priceWatchers['1'] = req.body);
 });
 
-module.exports = {
-  router,
-  priceWatchers
-};
+module.exports = router;

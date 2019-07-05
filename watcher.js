@@ -2,19 +2,23 @@ const nodemailer = require("nodemailer");
 const axios = require("axios");
 require('dotenv').config();
 
-const dataValues = require('./routes/priceWatchers')
 const cckey = process.env.CCAPI;
 const sendUser = process.env.SENDUSER;
 const sendPass = process.env.PASSWORD;
-const toAddress = dataValues.priceWatchers['1'].email;
-const priceLow = dataValues.priceWatchers['1'].priceLow;
-const priceHigh = dataValues.priceWatchers['1'].priceHigh;
-console.log(toAddress);
-console.log(priceLow);
-console.log(priceHigh);
 let prevEmail;
 
 checkPrice = () => {
+    axios
+        .get('http://localhost:3001/priceWatchers')
+        .then(resp => {
+            data = resp.data['1'];
+            priceLow = data.priceLow;
+            priceHigh = data.priceHigh;
+            toAddress = data.email;
+        })
+        .catch(err => {
+            console.log(err);
+        })
     axios
         .get(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC&tsyms=USD&api_key=${cckey}`)
         .then(resp => {
@@ -84,5 +88,3 @@ checkPrice = () => {
     setTimeout(checkPrice, 600000)
 }
 setTimeout(checkPrice, 0)
-
-checkPrice();
