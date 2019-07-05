@@ -3,14 +3,13 @@ import './App.css';
 
 export default class App extends Component {
   state = {
-      id: 1,
       email: "",
       priceLow: undefined,
       priceHigh: undefined
   }
 
   componentDidMount() {
-    fetch('/values')
+    fetch('/priceWatchers')
       .then(res => res.json())
       .then(data => {
         this.setState({
@@ -23,15 +22,18 @@ export default class App extends Component {
   
   handleSubmit = event => {
     event.preventDefault();
-    let userInput = {
-      email: event.target.email.value,
-      priceLow: event.target.lowprice.value,
-      priceHigh: event.target.highprice.value
-    };
-
-    fetch('/values', {
-      method: 'PUT',
-      body: userInput
+    console.log('Handling submit...');
+    console.log(event.target.email.value)
+    console.log(event.target.lowprice.value)
+    console.log(event.target.highprice.value)
+    
+    fetch('/priceWatchers', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: event.target.email.value,
+        priceLow: event.target.lowprice.value,
+        priceHigh: event.target.highprice.value
+      })
     }).then(res => res.json())
     .then(response => console.log('Success: ', response))
     .catch(error => console.error('Error: ', error))
@@ -40,7 +42,6 @@ export default class App extends Component {
   }
 
   render() {
-
     return (
       <div className="App">
         <header className="header-container">

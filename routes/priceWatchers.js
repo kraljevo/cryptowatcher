@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-let valueData = {
+let priceWatchers = {
   '1': {
     email: "",
     priceLow: undefined,
@@ -11,13 +11,13 @@ let valueData = {
 
 /* GET values listing. */
 router.get('/', (req, res) => {
-  res.json(valueData);
+  res.json(priceWatchers);
 });
 
-router.put('/values', (req, res) => {
-  const valueUpdates = req.query;
-  valueData[req.params.id] = valueUpdates;
-  res.send(valueData[req.params.id])
-}) 
+router.post('/', (req, res) => {
+  console.log('POST request received.');
+  console.log(req.body);
+  res.send(req.body)  
+});
 
 module.exports = router;
