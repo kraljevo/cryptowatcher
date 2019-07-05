@@ -23,20 +23,27 @@ export default class App extends Component {
   handleSubmit = event => {
     event.preventDefault();
     console.log('Handling submit...');
-    console.log(event.target.email.value)
-    console.log(event.target.lowprice.value)
-    console.log(event.target.highprice.value)
-    
-    fetch('/priceWatchers', {
-      method: 'POST',
-      body: JSON.stringify({
+    let userInput = {
         email: event.target.email.value,
         priceLow: event.target.lowprice.value,
         priceHigh: event.target.highprice.value
-      })
+    };
+    
+    fetch('/priceWatchers', {
+      method: 'POST',
+      body: JSON.stringify(userInput),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     }).then(res => res.json())
     .then(response => console.log('Success: ', response))
     .catch(error => console.error('Error: ', error))
+
+    this.setState({
+      email: event.target.email.value,
+      priceLow: event.target.lowprice.value,
+      priceHigh: event.target.highprice.value
+    });
       
     document.getElementById("form-price").reset();
   }
