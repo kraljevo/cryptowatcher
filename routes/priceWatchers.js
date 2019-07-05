@@ -17,8 +17,10 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   console.log('POST request received.');
   priceWatchers['1'] = req.body;
-  console.log(priceWatchers);
-  res.json(req.body)  
+  res.json(priceWatchers)  
 });
 
-module.exports = router;
+module.exports = {
+  router,
+  priceWatchers
+};
