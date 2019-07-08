@@ -60,19 +60,16 @@ export default class App extends Component {
           <div className="content-container">
             <form className="form-price" id="form-price" onSubmit={this.handleSubmit}>
               <div className="input-block">
-                <div className="price-label">Low Price: ${this.state.priceLow}</div>
+                <div className="price-label">Buy Price: ${this.state.priceLow}</div>
                 <input type="number" className="price-input" name="lowprice" />
               </div>
               <div className="input-block">
-                <div className="price-label">High Price: ${this.state.priceHigh}</div>
+                <div className="price-label">Sell Price: ${this.state.priceHigh}</div>
                 <input type="number" className="price-input" name="highprice"/>
               </div>
               <div className="input-block">
-                <div className="price-label">Email<span id="required-asterisk">*</span></div>
+                <div className="price-label">Email (required)</div>
                 <input type="email" className="price-input" name="email" />
-              </div>
-              <div className="input-block">
-                <span id="required-asterisk">*</span> = required
               </div>
               <div className="input-block" id="submit-container">
                 <input className="submit-button" type="submit" value="Save Changes" />
